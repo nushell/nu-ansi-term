@@ -13,16 +13,19 @@ pub struct Rgb {
 impl Rgb {
     /// Creates a new [Rgb] color
     #[inline]
+    #[must_use]
     pub const fn new(r: u8, g: u8, b: u8) -> Self {
         Self { r, g, b }
     }
 
     /// Creates a new [Rgb] color with a hex code
     #[inline]
+    #[must_use]
     pub const fn from_hex(hex: u32) -> Self {
         Self::new((hex >> 16) as u8, (hex >> 8) as u8, hex as u8)
     }
 
+    #[must_use]
     pub fn from_hex_string(hex: String) -> Self {
         if hex.chars().count() == 8 && hex.starts_with("0x") {
             // eprintln!("hex:{:?}", hex);
@@ -47,6 +50,7 @@ impl Rgb {
     }
 
     /// Creates a new [Rgb] color with three [f32] values
+    #[must_use]
     pub fn from_f32(r: f32, g: f32, b: f32) -> Self {
         Self::new(
             (r.clamp(0.0, 1.0) * 255.0) as u8,
@@ -57,11 +61,13 @@ impl Rgb {
 
     /// Creates a grayscale [Rgb] color
     #[inline]
+    #[must_use]
     pub const fn gray(x: u8) -> Self {
         Self::new(x, x, x)
     }
 
     /// Creates a grayscale [Rgb] color with a [f32] value
+    #[must_use]
     pub fn gray_f32(x: f32) -> Self {
         Self::from_f32(x, x, x)
     }
@@ -95,6 +101,7 @@ impl Rgb {
     // }
 
     /// Computes the linear interpolation between `self` and `other` for `t`
+    #[must_use]
     pub fn lerp(&self, other: Self, t: f32) -> Self {
         let t = t.clamp(0.0, 1.0);
         self * (1.0 - t) + other * t
@@ -139,9 +146,9 @@ const fn rgb_sub(lhs: &Rgb, rhs: &Rgb) -> Rgb {
 
 fn rgb_mul_f32(lhs: &Rgb, rhs: &f32) -> Rgb {
     Rgb::new(
-        (lhs.r as f32 * rhs.clamp(0.0, 1.0)) as u8,
-        (lhs.g as f32 * rhs.clamp(0.0, 1.0)) as u8,
-        (lhs.b as f32 * rhs.clamp(0.0, 1.0)) as u8,
+        (f32::from(lhs.r) * rhs.clamp(0.0, 1.0)) as u8,
+        (f32::from(lhs.g) * rhs.clamp(0.0, 1.0)) as u8,
+        (f32::from(lhs.b) * rhs.clamp(0.0, 1.0)) as u8,
     )
 }
 
