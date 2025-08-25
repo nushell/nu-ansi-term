@@ -28,8 +28,8 @@ pub fn enable_ansi_support() -> Result<(), u32> {
             FILE_SHARE_WRITE,
             std::ptr::null_mut(), // SECURITY_ATTRIBUTES
             OPEN_EXISTING,
-            0, // FILE_FLAGS_AND_ATTRIBUTES
-            0, // hTemplateFile: HANDLE
+            0,                    // FILE_FLAGS_AND_ATTRIBUTES
+            std::ptr::null_mut(), // hTemplateFile: HANDLE
         );
         if console_handle == INVALID_HANDLE_VALUE {
             return Err(GetLastError());
