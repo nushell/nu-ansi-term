@@ -31,7 +31,7 @@ impl Style {
                 written_anything = true;
                 #[cfg(feature = "gnu_legacy")]
                 write!(f, "0")?;
-                write!(f, "{}", c)?;
+                write!(f, "{c}")?;
                 Ok(())
             };
 
@@ -111,7 +111,7 @@ impl Style {
         if self.is_plain() {
             Ok(())
         } else {
-            write!(f, "{}", RESET)
+            write!(f, "{RESET}")
         }
     }
 }
@@ -131,8 +131,8 @@ impl Color {
             Color::Magenta => write!(f, "35"),
             Color::Cyan => write!(f, "36"),
             Color::White => write!(f, "37"),
-            Color::Fixed(num) => write!(f, "38;5;{}", num),
-            Color::Rgb(r, g, b) => write!(f, "38;2;{};{};{}", r, g, b),
+            Color::Fixed(num) => write!(f, "38;5;{num}"),
+            Color::Rgb(r, g, b) => write!(f, "38;2;{r};{g};{b}"),
             Color::Default => write!(f, "39"),
             Color::DarkGray => write!(f, "90"),
             Color::LightRed => write!(f, "91"),
@@ -157,8 +157,8 @@ impl Color {
             Color::Magenta => write!(f, "45"),
             Color::Cyan => write!(f, "46"),
             Color::White => write!(f, "47"),
-            Color::Fixed(num) => write!(f, "48;5;{}", num),
-            Color::Rgb(r, g, b) => write!(f, "48;2;{};{};{}", r, g, b),
+            Color::Fixed(num) => write!(f, "48;5;{num}"),
+            Color::Rgb(r, g, b) => write!(f, "48;2;{r};{g};{b}"),
             Color::Default => write!(f, "49"),
             Color::DarkGray => write!(f, "100"),
             Color::LightRed => write!(f, "101"),

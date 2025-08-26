@@ -37,7 +37,7 @@ impl fmt::Debug for Style {
                     fmt.write_str(", ")?
                 }
                 written_anything = true;
-                write!(fmt, "fg({:?})", fg)?
+                write!(fmt, "fg({fg:?})")?
             }
 
             if let Some(bg) = self.background {
@@ -45,7 +45,7 @@ impl fmt::Debug for Style {
                     fmt.write_str(", ")?
                 }
                 written_anything = true;
-                write!(fmt, "on({:?})", bg)?
+                write!(fmt, "on({bg:?})")?
             }
 
             {
@@ -133,10 +133,10 @@ mod test {
 }";
 
         let style = Blue.bold();
-        let style_fmt_debug = format!("{:?}", style);
-        let style_fmt_pretty = format!("{:#?}", style);
-        println!("style_fmt_debug:\n{}", style_fmt_debug);
-        println!("style_fmt_pretty:\n{}", style_fmt_pretty);
+        let style_fmt_debug = format!("{style:?}");
+        let style_fmt_pretty = format!("{style:#?}");
+        println!("style_fmt_debug:\n{style_fmt_debug}");
+        println!("style_fmt_pretty:\n{style_fmt_pretty}");
 
         assert_eq!(expected_debug, style_fmt_debug);
         assert_eq!(expected_pretty_repat, style_fmt_pretty);
