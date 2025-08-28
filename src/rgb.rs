@@ -66,7 +66,7 @@ impl Rgb {
         Self::from_f32(x, x, x)
     }
 
-    /// Creates a new [Rgb] color from a [HSL] color
+    // Creates a new [Rgb] color from a [HSL] color
     // pub fn from_hsl(hsl: HSL) -> Self {
     //     if hsl.s == 0.0 {
     //         return Self::gray_f32(hsl.l);
