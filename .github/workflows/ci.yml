@@ -1,29 +1,59 @@
 on: pull_request
 
-name: Continuous integration
+name: Continuous Integration
+
+env:
+  RUSTFLAGS: -D warnings
 
 jobs:
   ci:
+    name: ${{ matrix.name }} [${{ matrix.rust-version }}]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        rust:
-          - stable
-        os: [ubuntu-latest, windows-latest]
+        run-tests: [true]
+        rust-version: ["stable", "1.62.1"]
+        include:
+          - name: Linux
+            os: ubuntu-latest
+            extra-flags: --all-features
+
+          - name: Linux (no-std)
+            os: ubuntu-latest
+            extra-flags: --no-default-features
+
+          - name: Windows
+            os: windows-latest
+            extra-flags: --all-features
+
+          - name: Windows (no-std)
+            os: windows-latest
+            extra-flags: --no-default-features
+
+          - name: Bare Metal (no-std)
+            os: ubuntu-latest
+            extra-flags: --no-default-features
+            run-tests: false
+            env:
+              TARGET: thumbv7em-none-eabihf
+
 
     steps:
       - uses: actions/checkout@v3
 
       - uses: dtolnay/rust-toolchain@master
         with:
-          toolchain: ${{ matrix.rust }}
-          components: rustfmt, clippy
+          targets: ${{ matrix.env.TARGET || '' }}
+          toolchain: ${{ matrix.rust-version }}
+          components: clippy, rustfmt
 
       - run: cargo fmt --check --all
-      - run: cargo clippy -- -D warnings
-      - run: cargo build --all-features
-      - run: cargo test
-      - run: cargo test --all-features
-      - run: cargo run --example 256_colors
-      - run: cargo run --example hyperlink
-      - run: cargo run --example title
+      - run: cargo clippy ${{ matrix.extra-flags }}
+      - run: cargo build ${{ matrix.extra-flags }}
+
+      - if: matrix.run-tests
+        run: |
+          cargo test ${{ matrix.extra-flags }}
+          cargo run ${{ matrix.extra-flags }} --example 256_colors
+          cargo run ${{ matrix.extra-flags }} --example hyperlink
+          cargo run ${{ matrix.extra-flags }} --example title
