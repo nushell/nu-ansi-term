@@ -181,7 +181,8 @@
 //! it does provide a method [`write_to`] to write the result to any value that
 //! implements [`Write`]:
 //!
-//! ```
+#![cfg_attr(feature = "std", doc = "```")]
+#![cfg_attr(not(feature = "std"), doc = "```ignore")]
 //! use nu_ansi_term::Color::Green;
 //!
 //! Green.paint("user data".as_bytes()).write_to(&mut std::io::stdout()).unwrap();
@@ -190,7 +191,8 @@
 //! Similarly, the type [`AnsiByteStrings`] supports writing a list of
 //! [`AnsiByteString`] values with minimal escape sequences:
 //!
-//! ```
+#![cfg_attr(feature = "std", doc = "```")]
+#![cfg_attr(not(feature = "std"), doc = "```ignore")]
 //! use nu_ansi_term::Color::Green;
 //! use nu_ansi_term::AnsiByteStrings;
 //!
