@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rust_version: ["stable", "1.62.1"]
+        rust_version: ["stable", "1.71.1"]
         target:
           - name: Linux
             os: ubuntu-latest
