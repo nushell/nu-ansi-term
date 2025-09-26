@@ -7,7 +7,7 @@ authors = [
 ]
 description = "Library for ANSI terminal colors and styles (bold, underline)"
 edition = "2021"
-rust-version = "1.62.1"
+rust-version = "1.71.1"
 license = "MIT"
 name = "nu-ansi-term"
 version = "0.50.2"
