@@ -12,24 +12,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        run_tests: [true]
         rust_version: ["stable", "1.62.1"]
         target:
           - name: Linux
             os: ubuntu-latest
             extra_flags: --all-features
+            run_tests: true
 
           - name: Linux (no-std)
             os: ubuntu-latest
             extra_flags: --no-default-features
+            run_tests: true
 
           - name: Windows
             os: windows-latest
             extra_flags: --all-features
+            run_tests: true
 
           - name: Windows (no-std)
             os: windows-latest
             extra_flags: --no-default-features
+            run_tests: true
 
           - name: Bare Metal (no-std)
             os: ubuntu-latest
@@ -52,7 +55,7 @@ jobs:
       - run: cargo clippy ${{ matrix.target.extra_flags }}
       - run: cargo build ${{ matrix.target.extra_flags }}
 
-      - if: matrix.run_tests
+      - if: matrix.target.run_tests
         run: |
           cargo test ${{ matrix.target.extra_flags }}
           cargo run ${{ matrix.target.extra_flags }} --example 256_colors
