@@ -254,8 +254,9 @@ pub use display::*;
 
 mod write;
 
+#[cfg(all(windows, feature = "std"))]
 mod windows;
-#[allow(unused_imports)]
+#[cfg(all(windows, feature = "std"))]
 pub use crate::windows::*;
 
 mod util;
