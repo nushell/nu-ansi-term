@@ -8,7 +8,7 @@ const WIDTH: i32 = 80;
 const HEIGHT: i32 = 24;
 
 fn main() {
-    #[cfg(windows)]
+    #[cfg(all(windows, feature = "std"))]
     nu_ansi_term::enable_ansi_support().unwrap();
 
     for row in 0..HEIGHT {

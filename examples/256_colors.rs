@@ -9,7 +9,7 @@ use nu_ansi_term::Color;
 // - 232 to 255 are shades of grey.
 
 fn main() {
-    #[cfg(windows)]
+    #[cfg(all(windows, feature = "std"))]
     nu_ansi_term::enable_ansi_support().unwrap();
 
     // First two lines

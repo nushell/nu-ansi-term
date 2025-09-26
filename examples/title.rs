@@ -3,7 +3,7 @@ mod may_sleep;
 use may_sleep::{parse_cmd_args, sleep};
 
 fn main() {
-    #[cfg(windows)]
+    #[cfg(all(windows, feature = "std"))]
     nu_ansi_term::enable_ansi_support().unwrap();
 
     let sleep_ms = parse_cmd_args();
