@@ -400,22 +400,22 @@ impl fmt::Display for Suffix {
 }
 
 #[cfg(test)]
-macro_rules! test {
-    ($name: ident: $style: expr; $input: expr => $result: expr) => {
-        #[test]
-        fn $name() {
-            assert_eq!($style.paint($input).to_string(), $result.to_string());
-
-            let mut v = Vec::new();
-            $style.paint($input.as_bytes()).write_to(&mut v).unwrap();
-            assert_eq!(v.as_slice(), $result.as_bytes());
-        }
-    };
-}
-
-#[cfg(test)]
-#[cfg(not(feature = "gnu_legacy"))]
+#[cfg(all(not(feature = "gnu_legacy"), feature = "std"))]
 mod test {
+
+    macro_rules! test {
+        ($name: ident: $style: expr; $input: expr => $result: expr) => {
+            #[test]
+            fn $name() {
+                assert_eq!($style.paint($input).to_string(), $result.to_string());
+
+                let mut v = Vec::new();
+                $style.paint($input.as_bytes()).write_to(&mut v).unwrap();
+                assert_eq!(v.as_slice(), $result.as_bytes());
+            }
+        };
+    }
+
     use crate::style::Color::*;
     use crate::style::Style;
     use crate::Color;
