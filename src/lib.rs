@@ -251,8 +251,11 @@ pub use display::*;
 
 mod write;
 
+#[cfg(windows)]
+mod win_bindings;
+#[cfg(windows)]
 mod windows;
-#[allow(unused_imports)]
+#[cfg(windows)]
 pub use crate::windows::*;
 
 mod util;

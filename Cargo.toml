@@ -23,16 +23,10 @@ gnu_legacy = []
 [dependencies]
 serde = { version="1.0.152", features=["derive"], optional=true }
 
-[target.'cfg(windows)'.dependencies.windows]
-version = ">=0.59, <=0.61"
-package = "windows-sys"
-features = [
-    "Win32_Foundation",
-    "Win32_System_Console",
-    "Win32_Storage_FileSystem",
-    "Win32_Security"
-]
+[target.'cfg(windows)'.dependencies]
+windows-link = "0.2"
 
 [dev-dependencies]
 doc-comment = "0.3.3"
 serde_json = "1.0.94"
+windows-bindgen = "0.64"
